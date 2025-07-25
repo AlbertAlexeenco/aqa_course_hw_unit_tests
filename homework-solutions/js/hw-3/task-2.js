@@ -7,7 +7,7 @@ n + nn + nnn, где n не перемножаются, а конкатенир�
 
 let n = 4; 
 let nn = n + "" + n;
-let nnn = n + "" + n + "" + n;;
+const nnn =  "" + n  + n + n;;
 
 console.log(n + Number(nn) + Number(nnn));
 
