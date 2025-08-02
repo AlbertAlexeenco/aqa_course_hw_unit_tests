@@ -17,7 +17,7 @@ for(let i = 0; i < word.length; i++){
     }
 }
 
-vowelsAndConsonantsResult = `${vowelsAndConsonantsResult}${word} contains ${vowels} vowels and ${consonants} consonants`;
+vowelsAndConsonantsResult += `${word} contains ${vowels} vowels and ${consonants} consonants`;
 console.log(vowelsAndConsonantsResult);
 
 export { vowelsAndConsonantsResult };

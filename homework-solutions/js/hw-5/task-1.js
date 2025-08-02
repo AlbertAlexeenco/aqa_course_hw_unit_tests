@@ -7,10 +7,12 @@
 let evenNumbersResult = '';
 let originalNumber = 10;
 while(originalNumber >= 0){
-    evenNumbersResult = `${evenNumbersResult} ${originalNumber}`;
+    evenNumbersResult += originalNumber;
+    if(originalNumber !==0){
+        evenNumbersResult += "-";
+    }
     originalNumber -= 2;
 }
-evenNumbersResult = evenNumbersResult.trimStart().replaceAll(' ', '-');
 console.log(evenNumbersResult);
 
 /**
@@ -28,13 +30,12 @@ const smileFace = ":)";
 let smilePatternResult = '';
 for(let i = 1; i <= 5; i++){
     for(let j = 1; j <= i; j++){
-        smilePatternResult = `${smilePatternResult}${smileFace}`;
+        smilePatternResult += smileFace;
     }
     if(i !== 5){
-    smilePatternResult = `${smilePatternResult}\n`;
+        smilePatternResult += "\n";
     }
 } 
-smilePatternResult = smilePatternResult.trimEnd();
 console.log(smilePatternResult);
 
 /**
