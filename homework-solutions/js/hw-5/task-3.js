@@ -5,19 +5,23 @@
  */
 
 const word = 'hello';
-let vowels = 0;
-let consonants = 0;
+const vowels = "aeiou";
+const consonants = "bcdfghjklmnpqrstvwxyz";
+let vowelsCount = 0;
+let consonantsCount = 0;
 let vowelsAndConsonantsResult = '';
+const wordLowercase = word.toLowerCase();
 
-for(let i = 0; i < word.length; i++){
-    if (word[i] === 'a' || word[i] === 'e' || word[i] === 'i' || word[i] === 'o' || word[i] === 'u'){
-        vowels++;
-    } else {
-        consonants++;
+for(let i = 0; i < wordLowercase.length; i++){
+    if (vowels.includes(wordLowercase[i])){
+        vowelsCount++;
+    }
+    if (consonants.includes(wordLowercase[i])){
+        consonantsCount++;
     }
 }
 
-vowelsAndConsonantsResult += `${word} contains ${vowels} vowels and ${consonants} consonants`;
+vowelsAndConsonantsResult += `${word} contains ${vowelsCount} vowels and ${consonantsCount} consonants`;
 console.log(vowelsAndConsonantsResult);
 
 export { vowelsAndConsonantsResult };
