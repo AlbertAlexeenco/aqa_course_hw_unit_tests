@@ -16,6 +16,23 @@
  * ...
  * 100 - делится на 5
  */
+
 let fizzBuzzResult = '';
+for(let i = 1; i <= 100; i++){
+    fizzBuzzResult += i;
+    if(i % 3 === 0 && i % 5 === 0){
+        fizzBuzzResult += " - делится и на 3 и на 5";
+    } 
+    else if(i % 3 === 0 ){
+        fizzBuzzResult += " - делится на 3";
+    }
+    else if(i % 5 === 0 ){
+        fizzBuzzResult += " - делится на 5";
+    }
+    if(i !== 100){
+        fizzBuzzResult += `\n`;
+    }
+}
+console.log(fizzBuzzResult);
 
 export { fizzBuzzResult };
