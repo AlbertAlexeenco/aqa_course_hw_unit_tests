@@ -13,7 +13,36 @@
   const myPizzasT2 = ['Peperoni', 'Caprichosa', 'Diablo', '4 cheeses', 'hawai'];
 */
 
-let resultUnique;
+const resultUnique = [];
 let resultNull;
+const competitorPizzas = ['Peperoni', 'Caprichosa', 'Diablo', '4 cheeses', 'hawai']
+const myPizzasT1 = ['Peperoni', 'Margherita', 'Diablo', 'Vegetarian'];
+const myPizzasT2 = ['Peperoni', 'Caprichosa', 'Diablo', '4 cheeses', 'hawai'];
+let countDiffPizzas1 = 0;
+let countDiffPizzas2 = 0;
+
+for(const pizza of competitorPizzas){
+  competitorPizzas.splice(competitorPizzas.indexOf(pizza), 1 , pizza.toLowerCase());
+}
+
+for(const pizza of myPizzasT1){
+  if(!competitorPizzas.includes(pizza.toLowerCase()) ){
+    countDiffPizzas1++;
+    resultUnique.push(pizza);
+  }
+}
+if(!countDiffPizzas1){
+  resultNull = null;
+}
+
+for(const pizza of myPizzasT2){
+  if(!competitorPizzas.includes(pizza.toLowerCase()) ){
+    countDiffPizzas2++;
+    resultUnique.push(pizza);
+  }
+}
+if(!countDiffPizzas2){
+  resultNull = null;
+}
 
 export { resultNull, resultUnique };
