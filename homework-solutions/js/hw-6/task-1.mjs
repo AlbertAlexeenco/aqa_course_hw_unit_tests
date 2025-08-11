@@ -11,7 +11,11 @@
 const arr = [1,2,3,4,5,6,7,8,9,10];
 const forOf = [];
 for(let number of arr){
-  number = number % 2 === 0 ? (forOf.push(Math.pow(number, 2))) : (forOf.push(Math.pow(number, 3)));
+  if(number % 2 === 0){
+    forOf.push(Math.pow(number, 2));
+  } else {
+    forOf.push(Math.pow(number, 3));
+  }
 }
 console.log(arr);
 console.log(forOf);
