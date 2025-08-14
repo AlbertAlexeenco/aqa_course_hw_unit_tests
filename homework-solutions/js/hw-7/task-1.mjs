@@ -18,11 +18,11 @@ function mergeArrays(...arrays) {
   */
 
 function devideBy(sentence) {
-  const words = sentence.trim().split(" ");
+  const words = sentence.trim().split(/\s+/);
   console.log(words);
   const newSentence = [];
   for(let word of words){
-    if(words.indexOf(word) === 0){
+   if(words.indexOf(word) === 0){
       newSentence.push(word.trim().toLowerCase());
     } else {
       newSentence.push(word.slice(0,1).toUpperCase() + word.slice(1).toLowerCase());
@@ -30,7 +30,7 @@ function devideBy(sentence) {
   }
   return newSentence.join("_");
 }
-console.log(devideBy(" I am  super  engineer "));
+console.log(devideBy(" I  am   super   engineer "));
 
 
 /*
@@ -45,15 +45,15 @@ console.log(devideBy(" I am  super  engineer "));
 function fibonacci(n) {
   const arr = [0, 1]
   if (typeof n !== "number" || n < 0) throw new Error("Incorrect input");
-  if(n < 3){
+  if(n < 2){
     return arr[n];
   } else {
-    for (let i = 2; i < n; i++){
+    for (let i = 2; i <= n; i++){
       arr.push(arr[i-1] + arr[i-2]);
     }
     return arr[n];
   }
 }
-console.log(fibonacci(0));
+console.log(fibonacci(1));
 
 export { mergeArrays, fibonacci, devideBy };
