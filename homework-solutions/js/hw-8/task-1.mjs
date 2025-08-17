@@ -33,8 +33,13 @@ console.log(find);
 let sort = numbers.toSorted((a,b) => a -b);
 console.log(sort);
 
-let reduce;
-let some;
-let every;
+let reduce = numbers.reduce((res, el) => res += el,0);
+console.log(reduce);
+
+let some = numbers.some(el => el > 90);
+console.log(some);
+
+let every = numbers.every(el => (el > 9 && el <100));
+console.log(every);
 
 export { forEach, map, filter, find, sort, reduce, some, every };
