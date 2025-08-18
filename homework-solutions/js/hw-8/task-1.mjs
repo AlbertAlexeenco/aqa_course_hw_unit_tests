@@ -14,13 +14,32 @@
 */
 const numbers = [7, 8, 2, 30, 85, 95, 77, 94, 37, 31];
 
-let forEach;
-let map;
-let filter;
-let find;
-let sort;
-let reduce;
-let some;
-let every;
+let forEach = [];
+numbers.forEach((el) => {
+  if (el % 3 === 0) {
+    forEach.push(el);
+  }
+});
+
+let map = numbers.map((el) => (el - numbers.length));
+console.log(map);
+
+let filter = numbers.filter((el, i) => (numbers[i] > numbers[i-1]))
+console.log(filter);
+
+let find = numbers.find((el, i) => (el === i)) ;
+console.log(find);
+
+let sort = numbers.toSorted((a,b) => a -b);
+console.log(sort);
+
+let reduce = numbers.reduce((res, el) => res += el,0);
+console.log(reduce);
+
+let some = numbers.some(el => el > 90);
+console.log(some);
+
+let every = numbers.every(el => (el > 9 && el <100));
+console.log(every);
 
 export { forEach, map, filter, find, sort, reduce, some, every };
