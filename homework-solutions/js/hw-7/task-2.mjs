@@ -4,8 +4,12 @@
 */
 
 function isPalindrom(word) {
-  // Ваш код
+  if(typeof word !== "string") return false;
+  const cleanWord = word.toLowerCase();
+  const reversedWord = cleanWord.split('').reverse().join('');
+  return (cleanWord === reversedWord); 
 }
+console.log(isPalindrom('MadAm'));
 
 /*
  2. findLongestWords()
@@ -15,7 +19,20 @@ function isPalindrom(word) {
 */
 
 function findLongestWords(sentence) {
-  // Ваш код
+   let longest = 0;
+   let result = [];
+   if(typeof sentence !== "string" || !(sentence.length)) return result;
+   const words = sentence.trim().split(/\s+/);
+   for (const word of words){
+    if(word.length > longest){
+      longest = word.length;
+      result.splice(0, result.length, word);
+    }
+    if (word.length === longest && !result.includes(word)){
+      result.push(word);
+    }
+   }
+   return result;
 }
 
 export { isPalindrom, findLongestWords };
