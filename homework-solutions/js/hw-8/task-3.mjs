@@ -7,7 +7,23 @@
 */
 
 function findMissingNumber(numbers) {
-  // Ваш код
-}
+  return numbers.sort((a, b) => a - b)
+  .reduce((res, el, i, arr) =>{
+    if(res !== null){
+       return res;
+    }
+    if (el !== i+1) {
+      res = i+1;
+    } 
+    if(res === null && el === arr[arr.length-1]){
+      res = arr.length+1;
+    }
+    return res;
+  } , null);
+  }
+
+const arr = [1,2,3]
+console.log(findMissingNumber(arr));
+console.log(arr);
 
 export { findMissingNumber };
