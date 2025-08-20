@@ -163,6 +163,12 @@ console.log(getWordsWith(words, "an", 3));
 // Примените этот пайплайн к каждому элементу массива numbers, вернув новый массив.
 // Бонус (+1 балл): без цикла for.
 
+function pipelineNumbers(array){
+ return array.map(el => el +10).map(el => el *2).map(el => el %7)
+}
+
+console.log(pipelineNumbers(numbers));
+
 // ⸻
 
 // Босс
