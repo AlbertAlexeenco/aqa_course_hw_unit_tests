@@ -60,7 +60,7 @@ class Company {
   
   #employees = [];
 
-  constructor(title, phone, address, salary){
+  constructor(title, phone, address){
     this.title = title;
     this.phone = phone;
     this.address = address;
