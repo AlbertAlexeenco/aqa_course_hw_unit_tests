@@ -20,25 +20,16 @@ class Employee {
   }
 
   set lastName(value){
-    //if (typeof value !== "string" || value.length <= 1 || value.length > 50 || !/^[a-zA-Z]+$/.test(value)) throw new Error("Invalid lastName");
+    if (typeof value !== "string" || value.length <= 1 || value.length > 50 || !/^[a-zA-Z]+$/.test(value)) throw new Error("Invalid lastName");
     this._lastName = value;
   }
 
-  // get profession(){
-  //   return this._profession;
-  // }
-
-  // set profession(value){
-  // //  if (typeof value !== "string" || !value || !/^[a-zA-Z]+(\s[a-zA-Z]+)*$/.test(value)) throw new Error("Invalid profession");
-  //   this._profession = value;
-  // }
-  
   get salary(){
     return this.#salary;
   }
 
   set salary(value){
-    //if (typeof value !== "number"|| Number.isNaN(value) || value <= 0 || value >= 10000) throw new Error("Invalid salary");
+    if (typeof value !== "number"|| Number.isNaN(value) || value <= 0 || value >= 100000) throw new Error("Invalid salary");
     this.#salary = value;
   }
 
@@ -123,7 +114,7 @@ class Company {
     }
   
     set title(value){
-      //if (typeof value !== "string") throw new Error("Invalid title");
+    //  if (typeof value !== "string") throw new Error("Invalid title");
       this._title = value;
     }
   
@@ -132,7 +123,7 @@ class Company {
     }
   
     set phone(value){
-      //if (typeof value !== "number") throw new Error("Invalid phone");
+    //  if (typeof value !== "number") throw new Error("Invalid phone");
       this._phone = value;
     }
   
@@ -141,7 +132,7 @@ class Company {
     }
   
     set address(value){
-      //if (typeof value !== "string") throw new Error("Invalid address");
+    //  if (typeof value !== "string") throw new Error("Invalid address");
       this._address = value;
     }
 
@@ -190,18 +181,18 @@ class Company {
     }
 }
 
-   const emp1 = new Developer('John', 'Doe', 3000, ["javascript", "1C"]);
-   const emp2 = new Developer('Andy', 'Gospodi', 5000, "Java");
-   const emp3 = new Manager('Serj', 'Amalfi', 3500, 11);
-   const emp4 = new Designer('Dasha', 'Sliva', 5000, "Figma");
+  //  const emp1 = new Developer('John', 'Doe', 3000, ["javascript", "1C"]);
+  //  const emp2 = new Developer('Andy', 'Gospodi', 5000, "Java");
+  //  const emp3 = new Manager('Serj', 'Amalfi', 3500, 11);
+  //  const emp4 = new Designer('Dasha', 'Sliva', 5000, "Figma");
 
 
-  const company = new Company('Tech Corp', 123456, 'Main Street');
-  company.addEmployee(emp1);
-  company.addEmployee(emp2);
-  company.addEmployee(emp3);
-  company.addEmployee(emp4);
-  console.log(emp1);
-  console.log(company.getEmployeesByProfession("Developer"));
+  //   const company = new Company('Tech Corp', 123456, 'Main Street');
+  //   company.addEmployee(emp1);
+  //   company.addEmployee(emp2);
+  //   company.addEmployee(emp3);
+  //   company.addEmployee(emp4);
+  //   console.log(emp1);
+  //   console.log(company.getEmployeesByProfession("Developer"));
 
 export { Employee, Company, Designer, Developer, Manager };
