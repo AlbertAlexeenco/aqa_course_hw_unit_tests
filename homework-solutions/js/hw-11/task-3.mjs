@@ -41,7 +41,7 @@ class Employee {
 class Developer extends Employee {
    constructor(firstName, lastName, salary, language = []){
      super(firstName, lastName, salary);
-     this.programmingLanguages = language;
+     this.programmingLanguages = [...language];
    }
 
    get programmingLanguages(){
@@ -186,13 +186,12 @@ class Company {
   //  const emp3 = new Manager('Serj', 'Amalfi', 3500, 11);
   //  const emp4 = new Designer('Dasha', 'Sliva', 5000, "Figma");
 
-
-  //   const company = new Company('Tech Corp', 123456, 'Main Street');
-  //   company.addEmployee(emp1);
-  //   company.addEmployee(emp2);
-  //   company.addEmployee(emp3);
-  //   company.addEmployee(emp4);
-  //   console.log(emp1);
-  //   console.log(company.getEmployeesByProfession("Developer"));
+  //  const company = new Company('Tech Corp', 123456, 'Main Street');
+  //  company.addEmployee(emp1);
+  //  company.addEmployee(emp2);
+  //  company.addEmployee(emp3);
+  //  company.addEmployee(emp4);
+  //  console.log(emp1);
+  //  console.log(company.getEmployeesByProfession("Developer"));
 
 export { Employee, Company, Designer, Developer, Manager };
