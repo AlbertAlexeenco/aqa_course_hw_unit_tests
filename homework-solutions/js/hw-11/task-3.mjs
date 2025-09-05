@@ -41,7 +41,7 @@ class Employee {
 class Developer extends Employee {
    constructor(firstName, lastName, salary, language = []){
      super(firstName, lastName, salary);
-     this.programmingLanguages = [...language];
+     this.programmingLanguages = language;
    }
 
    get programmingLanguages(){
@@ -49,13 +49,17 @@ class Developer extends Employee {
   }
 
   set programmingLanguages(value){
-    this._programmingLanguages = value;
+    if (typeof value === 'string') {
+      this._programmingLanguages = [value];
+    } else if (Array.isArray(value)) {
+      this._programmingLanguages = [...value];
+    }
   }
   
   addProgrammingLanguage(language){
     if(typeof language !== "string" || this._programmingLanguages.includes(language) || !/^[a-zA-Z]+$/.test(language)) 
       throw new Error ("Language problemo");
-    this.programmingLanguages.push(language);
+    this._programmingLanguages.push(language);
   }
 }
 
@@ -181,17 +185,17 @@ class Company {
     }
 }
 
-  //  const emp1 = new Developer('John', 'Doe', 3000, ["javascript", "1C"]);
-  //  const emp2 = new Developer('Andy', 'Gospodi', 5000, "Java");
-  //  const emp3 = new Manager('Serj', 'Amalfi', 3500, 11);
-  //  const emp4 = new Designer('Dasha', 'Sliva', 5000, "Figma");
+   const emp1 = new Developer('John', 'Doe', 3000, ["javascript", "1C"]);
+   const emp2 = new Developer('Andy', 'Gospodi', 5000, "Java");
+   const emp3 = new Manager('Serj', 'Amalfi', 3500, 11);
+   const emp4 = new Designer('Dasha', 'Sliva', 5000, "Figma");
 
-  //  const company = new Company('Tech Corp', 123456, 'Main Street');
-  //  company.addEmployee(emp1);
-  //  company.addEmployee(emp2);
-  //  company.addEmployee(emp3);
-  //  company.addEmployee(emp4);
-  //  console.log(emp1);
-  //  console.log(company.getEmployeesByProfession("Developer"));
+   const company = new Company('Tech Corp', 123456, 'Main Street');
+   company.addEmployee(emp1);
+   company.addEmployee(emp2);
+   company.addEmployee(emp3);
+   company.addEmployee(emp4);
+   console.log(emp1);
+   console.log(company.getEmployeesByProfession("Developer"));
 
 export { Employee, Company, Designer, Developer, Manager };
