@@ -10,9 +10,12 @@ async function createTodo({userId, title, completed}){
     try{
         const response = await fetch("https://jsonplaceholder.typicode.com/todos", {
             method: "post",
-            body: {
-                userId, title, completed,
+            headers: {
+                'content-type': 'application/json'
             },
+            body: JSON.stringify({
+                userId, title, completed,
+            }),
         })
         if(response.status !== 201) throw new Error(`Unexpected status code ${response.status}`);
         const body = await response.json();
