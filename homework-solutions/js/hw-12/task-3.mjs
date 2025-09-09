@@ -21,3 +21,84 @@
 //           albums:
 //             Album name 1 (10 photos)
 //             Album name 2 (100 photos)
+
+class jsonPlaceholderApi{
+
+    #baseUrl = `https://jsonplaceholder.typicode.com`;
+
+    endpoints = {
+        users : "/users",
+        albums: "/albums",
+        photos: "/photos",
+    }
+
+    async getAllUsers() {
+        try{
+            const response = await fetch(this.#baseUrl + this.endpoints.users);
+            const body = await response.json();
+            return body;
+        }
+        catch(err){
+            console.error(err.message);
+        }   
+    }
+
+    async getAllAlbums() {
+        try{
+            const response = await fetch(this.#baseUrl + this.endpoints.albums);
+            const body = await response.json();
+            return body;
+        }
+        catch(err){
+            console.error(err.message);
+        }   
+    }
+
+    async getAllPhotos() {
+        try{
+            const response = await fetch(this.#baseUrl + this.endpoints.photos);
+            const body = await response.json();
+            return body;
+        }
+        catch(err){
+            console.error(err.message);
+        }   
+    }
+
+    // async getUserBy(field, value) {
+    //     try{
+    //         if(!["name", "username", "email"].includes(field)) return;
+    //         const user = await getAllUsers().find(user => user[field] === user[value]);
+    //         return user;
+    //     }
+    //     catch(err){
+    //         console.error(err.message);
+    //     }   
+    // }
+
+    async printUsersInfo(){
+        const users = await this.getAllUsers();
+        await users.forEach(({name, email, company }) => {
+            console.log(`name: ${name}, \nemail: ${email}, \ncompany: ${company.name}\n`);
+        });
+    }
+
+    getUserByID(){
+        // add
+    }
+
+    async getUsersAlbums(){
+        const users = await this.getAllUsers();
+        const userIds = await users.map(user => user.id);
+        
+        const albums = await this.getAllAlbums();
+        // by id cumva
+        //await albums.forEach(album => if(use))
+    }
+
+}
+    
+const api = new jsonPlaceholderApi();
+//api.getAllUsers().then(user => console.log(user));
+api.printUsersInfo();
+api.getUsersAlbums();
