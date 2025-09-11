@@ -22,120 +22,42 @@
 //             Album name 1 (10 photos)
 //             Album name 2 (100 photos)
 
-class jsonPlaceholderApi{
 
-    #baseUrl = `https://jsonplaceholder.typicode.com`;
+async function printAllInfo(){
+    try{
+        const [usersResponse, albumsResponse, photosResponse] = await Promise.all([
+            fetch("https://jsonplaceholder.typicode.com/users"),
+            fetch("https://jsonplaceholder.typicode.com/albums"),
+            fetch("https://jsonplaceholder.typicode.com/photos"),
+        ]);
 
-    endpoints = {
-        users : "/users",
-        albums: "/albums",
-        photos: "/photos",
-    }
-
-    async getAllFromEndpoint(endpoint){
-        try{
-            const response = await fetch(this.#baseUrl + endpoint);
-            const body = await response.json();
-            return body;
-        }
-        catch(err){
-            console.error(err.message);
-        }   
-    }
-
-    async getUserBy(field, value) {
-        try{
-            if(!["id", "name", "username", "email"].includes(field)) return;
-            const user = await getAllFromEndpoint(this.endpoints.users).find(user => user[field] === user[value]);
-            return user;
-        }
-        catch(err){
-            console.error(err.message);
-        }   
-    }
-
-    async printUsersInfo(){
-        try{
-            const users = await this.getAllFromEndpoint(this.endpoints.users);
-            await users.forEach(async ({id, name, email, phone, company }) => {
-                const albumsInfo = await this.getUsersAlbums(id).forEach(album => console.log(album.title));
-                console.log(`\nname: ${name}, \nemail: ${email},\nphone: ${phone}, \ncompany: ${company.name}, \nalbums: ${ albumsInfo.name}` );
-            });
-        }  
-        catch(err){
-            console.error(err.message);
-        }   
-
+        if (!usersResponse.ok || !albumsResponse.ok || !photosResponse.ok) {
+        throw new Error('Error in receving data from API');
         }
 
-    async getUsersAlbums(userId){
-        try{
-            const allAlbums = await this.getAllFromEndpoint(this.endpoints.albums);
-            return allAlbums.filter(album => album.userId === userId);
-                // .map(album => {
-                //     const albumId = album.id;
-                //     const photosCounter = this.getPhotosByAlbumId(albumId);
-            //  }
-            // );
-         }
-         catch(err){
-            console.error(err.message);
-        }   
+        const [users, albums, photos] = await Promise.all([
+            usersResponse.json(),
+            albumsResponse.json(),
+            photosResponse.json()
+        ]);
+
+        users.forEach((user, index ) => {
+            console.log(`${index + 1}. name: ${user.name}`);
+            console.log(`    email: ${user.email}`);
+            console.log(`    phone: ${user.phone}`);
+            console.log(`    company: ${user.company.name}`);
+            console.log(`    albums: `); 
+            
+            const userAlbums = albums.filter(album => album.userId === user.id);
+            userAlbums.forEach(album => {
+                const albumPhotos = photos.filter(photos => photos.albumId === album.id);
+                console.log(`      ${album.title} (${albumPhotos.length} photos)`)
+            })
+        });
     }
-
-    async getPhotosByAlbumId(albumId){
-        const allPhotos = await this.getAllFromEndpoint(this.endpoints.photos);
-        const nrOfPhotos= await allPhotos.reduce((count, photo) => {
-            if(photo.albumId !== albumId){
-                return count;
-            } return count += 1;
-        } ,0);
-
-        return nrOfPhotos;
+    catch(error){
+        console.error(error.message);
     }
 }
-    
-const api = new jsonPlaceholderApi();
-//api.getAllUsers().then(user => console.log(user));
-api.printUsersInfo();
-//api.getUsersAlbums();
-//api.getAllAlbums().then(user => console.log(user));
-//api.getUsersAlbums(5);
-//api.getPhotosByAlbumId(1);
 
-
-
-
-
- // async getAllUsers() {
-    //     try{
-    //         const response = await fetch(this.#baseUrl + this.endpoints.users);
-    //         const body = await response.json();
-    //         return body;
-    //     }
-    //     catch(err){
-    //         console.error(err.message);
-    //     }   
-    // }
-
-    // async getAllAlbums() {
-    //     try{
-    //         const response = await fetch(this.#baseUrl + this.endpoints.albums);
-    //         const body = await response.json();
-    //         return body;
-    //     }
-    //     catch(err){
-    //         console.error(err.message);
-    //     }   
-    // }
-
-    // async getAllPhotos() {
-    //     try{
-    //         const response = await fetch(this.#baseUrl + this.endpoints.photos);
-    //         const body = await response.json();
-    //         return body;
-    //     }
-    //     catch(err){
-    //         console.error(err.message);
-    //     }   
-    // }
+printAllInfo();  
