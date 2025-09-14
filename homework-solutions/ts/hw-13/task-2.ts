@@ -9,11 +9,11 @@
 
 function validatePassword (password:string): boolean{
     if(password.length < 8) return false;
-    if(!/[A-Z]/.test(password)) return false;
-    if(!/[a-z]/.test(password)) return false;
+    if(!/[A-ZА-Я]/.test(password)) return false;
+    if(!/[a-zа-я]/.test(password)) return false;
     if(!/[0-9]/.test(password)) return false;
     if (password.trim().length === 0) return false;
     else return true;
 }
 
-console.log(validatePassword(`Alohamora5`))
+console.log(validatePassword(`okokoЯЯЯЯ5`));
