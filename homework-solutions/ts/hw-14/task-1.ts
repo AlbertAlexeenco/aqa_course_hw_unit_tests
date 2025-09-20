@@ -12,7 +12,7 @@ function wrapInArray<T> (input: T): T[]  {
 
 //2. Создайте дженерик функцию getLastElement, которая принимает массив элементов типа T, и возвращает последний элемент (типа T).
 
-    function getLastItem<T> (array: T[]) :T {
+    function getLastItem<T> (array: T[]) :T | undefined{
       return array[array.length - 1];
     }
 
