@@ -114,3 +114,141 @@ const enterprises = [
 
 // Пример:
 // moveEmployees(2, 3)
+
+interface IEntity{
+    id: number,
+    name: string,
+    getTotalEmployees():number;
+    editName(newName:string):void;
+}
+interface IDepartment extends IEntity{
+    employees_count:number,
+}
+interface ICompany extends IEntity {
+    departments: IDepartment[]
+}
+class Department implements IDepartment{
+    constructor(public readonly id:number, public name:string, public employees_count:number){}
+    printDeptInfo(){
+        console.log(`- ${this.name} (${this.getTotalEmployees() || "нет"} сотрудников)`)
+    }
+    getTotalEmployees(): number{
+        return this.employees_count;
+    }
+    editName(newName:string){
+        this.name = newName;
+    }
+    editEmployeesCount(newEmployees_count:number){
+        this.employees_count = newEmployees_count;
+    }
+    addEmployees(number:number){
+        this.employees_count += number;
+    }
+}
+class Company implements ICompany{
+    departments: Department[];
+    constructor (public readonly id:number, public name:string, departments: Department[]){
+        this.departments = [...departments]
+    }
+    printCompanyInfo(){
+        console.log(`${this.name} (${this.getTotalEmployees() || "нет"} сотрудников)`);
+        this.departments.forEach(dept => dept.printDeptInfo());
+    }
+    getTotalEmployees():number{
+        return this.departments.reduce((sum, dept) => {
+            return sum += dept.getTotalEmployees();
+        }, 0);
+    }
+    editName(newName:string){
+        this.name = newName;
+    }
+    addDepartment(name:string){
+        this.departments.push(new Department(this.getNewDepartmentId() ,name, 0))
+    }
+    findDepartmentByID(id:number):Department| undefined{
+        return this.departments.find(dept => id === dept.id);
+    }
+    deleteDepartment(id:number){
+        const indexOfDepartment = this.departments.findIndex(dept => dept.id === id);
+        if(indexOfDepartment !== -1 && this.departments[indexOfDepartment].getTotalEmployees() === 0){
+            this.departments.splice(indexOfDepartment, 1);
+        }
+    }
+    moveEmployees(fromId:number, toId:number){
+        let fromDepartment = this.findDepartmentByID(fromId);
+        let fromDeptEmployeesNr:number = 0;
+        if(fromDepartment) fromDeptEmployeesNr = fromDepartment.getTotalEmployees();
+        let toDepartment = this.findDepartmentByID(toId);
+        if(toDepartment && fromDeptEmployeesNr){
+            toDepartment.editEmployeesCount((toDepartment.getTotalEmployees() + fromDeptEmployeesNr));
+            fromDepartment?.editEmployeesCount(0);
+        }
+    }
+    protected getNewDepartmentId(): number {
+        if (this.departments.length === 0) {
+            return 1;
+        } else return this.departments.length + 1;
+    }
+}
+class Enterprise{
+    protected enterprise:Company[] = [];
+    constructor(companies:Company[]){
+        this.enterprise = [...companies]
+    }
+    printEnterpriseInfo(){
+        this.enterprise.forEach(comp => comp.printCompanyInfo());
+    }
+    getEnterpriseName(nameOrId:string | number):string{
+        const companyFound = this.enterprise.find(({id, name}) =>(id === nameOrId || name === nameOrId));
+        if(!companyFound) throw new Error("Company not found") ;
+        return companyFound.name;
+    }
+    addEnterprise(name:string){
+        this.enterprise.push(new Company(this.getNewEnterpriseId() ,name,[]))
+    }
+    protected getNewEnterpriseId(): number {
+        if (this.enterprise.length === 0) {
+        return 1;
+        } else return this.enterprise.length + 1;
+    }
+    addDepartment(id:number, name:string){
+        this.findCompanyById(id).addDepartment(name);
+    }
+    protected findCompanyById(id:number){
+        const found = this.enterprise.find(company => company.id === id);
+        if (!found) throw new Error("id not found");
+        return found;
+    }
+    editEnterprise(id:number, newName:string){
+        this.findCompanyById(id).editName(newName);
+    }
+    editDepartment(id:number, newName:string){
+        this.findDepartmentById(id).editName(newName);
+    }
+    protected findDepartmentById(id:number){
+        let found:Department | undefined;
+        for (const company of this.enterprise){
+            found = company.findDepartmentByID(id);
+        if (found) return found;
+        }
+        if (!found) throw new Error("id not found");
+        return found;
+    }
+    deleteEnterprise(id:number){
+        this.enterprise.splice(this.getIndexOfCompany(id), 1);
+    }
+    protected getIndexOfCompany(id:number): number{
+        const indexOfCompany = this.enterprise.findIndex(company => company.id === id);
+        if (indexOfCompany === -1) throw new Error("id not found");
+        return indexOfCompany;
+    }
+    deleteDepartment(id:number){
+        for (const company of this.enterprise){
+            company.deleteDepartment(id);
+        }
+    }
+}
+    const zavod = new Department(1.1, "zavod", 15);
+    zavod.printDeptInfo();
+    const mircos = new Company(1, "Mircos & sons", [zavod]);
+    mircos.printCompanyInfo();
